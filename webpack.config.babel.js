@@ -15,37 +15,47 @@ const commonConfig = merge([
   {
     plugins: [
       new HtmlWebpackPlugin({
-        title: "Webpack demo",
-      }),
-    ],
+        title: "Webpack demo"
+      })
+    ]
   },
   parts.loadJavaScript({ include: PATHS.app }),
+  parts.setFreeVariable("HELLO", "hello from config")
 ]);
 
 const productionConfig = merge([
+  {
+    output: {
+      chunkFilename: "[name].[chunkhash:4].js",
+      filename: "[name].[chunkhash:4].js"
+    }
+  },
   parts.clean(PATHS.build),
   parts.minifyJavaScript(),
   parts.extractCSS({
-    use: ["css-loader", parts.autoprefix()],
+    use: ["css-loader", parts.autoprefix()]
   }),
   parts.purifyCSS({
-    paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
+    paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true })
   }),
   parts.loadImages({
     options: {
       limit: 15000,
-      name: "[name].[ext]",
-    },
+      name: "[name].[hash:4].[ext]"
+    }
   }),
   parts.generateSourceMaps({ type: "source-map" }),
   {
     optimization: {
       splitChunks: {
-        chunks: "initial",
+        chunks: "initial"
       },
-    },
+      runtimeChunk: {
+        name: "manifest",
+      },
+    }
   },
-  parts.attachRevision(),
+  parts.attachRevision()
 ]);
 
 const developmentConfig = merge([

@@ -4,10 +4,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const UglifyWebpackPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require(
-  "optimize-css-assets-webpack-plugin"
-);
-const cssnano = require("cssnano");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -36,7 +34,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
 exports.extractCSS = ({ include, exclude, use = [] }) => {
   // Output extracted CSS to a file
   const plugin = new MiniCssExtractPlugin({
-    filename: "[name].css",
+    filename: "[name].[contenthash:4].css"
   });
 
   return {
@@ -118,3 +116,18 @@ exports.minifyJavaScript = () => ({
     minimizer: [new UglifyWebpackPlugin({ sourceMap: true })],
   },
 });
+
+exports.setFreeVariable = (key, value) => {
+  const env = {};
+  env[key] = JSON.stringify(value);
+
+  return {
+    plugins: [new webpack.DefinePlugin(env)]
+  };
+};
+
+exports.
+
+plugins: [
+  new BundleAnalyzerPlugin()
+]
