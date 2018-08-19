@@ -1,3 +1,3 @@
-/*! eaddd00 */
+/*! 9604cbc */
 (window.webpackJsonp=window.webpackJsonp||[]).push([[0],{16:function(n,e,o){},18:function(n,e,o){"use strict";o.r(e);o(0),o(6),o(14),o(16);console.log("bake"),document.body.appendChild(function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"hello from config",e=document.createElement("div");return e.className="pure-button",e.innerHTML=n,e.onclick=function(){return o.e(1).then(o.bind(null,19)).then(function(n){e.textContent=n.default}).catch(function(n){console.error(n)})},e}())}},[[18,3,2]]]);
 //# sourceMappingURL=main.41a0.js.map

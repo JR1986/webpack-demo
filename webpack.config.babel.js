@@ -59,6 +59,7 @@ const productionConfig = merge([
 ]);
 
 const developmentConfig = merge([
+  parts.analyzeBundle(),
   parts.devServer({
     // Customize host/port here if needed
     host: process.env.HOST,

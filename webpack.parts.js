@@ -13,8 +13,8 @@ exports.devServer = ({ host, port } = {}) => ({
     host, // Defaults to `localhost`
     port, // Defaults to 8080
     open: true,
-    overlay: true,
-  },
+    overlay: true
+  }
 });
 
 exports.loadCSS = ({ include, exclude } = {}) => ({
@@ -25,10 +25,10 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
         include,
         exclude,
 
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
-    ],
-  },
+        use: ["style-loader", "css-loader", "sass-loader"]
+      }
+    ]
+  }
 });
 
 exports.extractCSS = ({ include, exclude, use = [] }) => {
@@ -45,25 +45,23 @@ exports.extractCSS = ({ include, exclude, use = [] }) => {
           include,
           exclude,
 
-          use: [
-            MiniCssExtractPlugin.loader,
-          ].concat(use),
-        },
-      ],
+          use: [MiniCssExtractPlugin.loader].concat(use)
+        }
+      ]
     },
-    plugins: [plugin],
+    plugins: [plugin]
   };
 };
 
 exports.purifyCSS = ({ paths }) => ({
-  plugins: [new PurifyCSSPlugin({ paths })],
+  plugins: [new PurifyCSSPlugin({ paths })]
 });
 
 exports.autoprefix = () => ({
   loader: "postcss-loader",
   options: {
-    plugins: () => [require("autoprefixer")()],
-  },
+    plugins: () => [require("autoprefixer")()]
+  }
 });
 
 exports.loadImages = ({ include, exclude, options } = {}) => ({
@@ -75,11 +73,11 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
         exclude,
         use: {
           loader: "url-loader",
-          options,
-        },
-      },
-    ],
-  },
+          options
+        }
+      }
+    ]
+  }
 });
 
 exports.loadJavaScript = ({ include, exclude } = {}) => ({
@@ -89,32 +87,32 @@ exports.loadJavaScript = ({ include, exclude } = {}) => ({
         test: /\.js$/,
         include,
         exclude,
-        use: "babel-loader",
-      },
-    ],
-  },
+        use: "babel-loader"
+      }
+    ]
+  }
 });
 
 exports.generateSourceMaps = ({ type }) => ({
-  devtool: type,
+  devtool: type
 });
 
 exports.clean = path => ({
-  plugins: [new CleanWebpackPlugin([path])],
+  plugins: [new CleanWebpackPlugin([path])]
 });
 
 exports.attachRevision = () => ({
   plugins: [
     new webpack.BannerPlugin({
-      banner: new GitRevisionPlugin().version(),
-    }),
-  ],
+      banner: new GitRevisionPlugin().version()
+    })
+  ]
 });
 
 exports.minifyJavaScript = () => ({
   optimization: {
-    minimizer: [new UglifyWebpackPlugin({ sourceMap: true })],
-  },
+    minimizer: [new UglifyWebpackPlugin({ sourceMap: true })]
+  }
 });
 
 exports.setFreeVariable = (key, value) => {
@@ -126,8 +124,8 @@ exports.setFreeVariable = (key, value) => {
   };
 };
 
-exports.
-
-plugins: [
-  new BundleAnalyzerPlugin()
-]
+exports.analyzeBundle = () => ({
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ]
+});
